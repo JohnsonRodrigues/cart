@@ -104,7 +104,7 @@ class Cart
 
         $content->put($cartItem->rowId, $cartItem);
         
-        $this->events->fire('cart.added', $cartItem);
+        $this->events->dispatch('cart.added', $cartItem);
 
         $this->session->put($this->instance, $content);
 
@@ -148,7 +148,7 @@ class Cart
             $content->put($cartItem->rowId, $cartItem);
         }
 
-        $this->events->fire('cart.updated', $cartItem);
+        $this->events->dispatch('cart.updated', $cartItem);
 
         $this->session->put($this->instance, $content);
 
@@ -169,7 +169,7 @@ class Cart
 
         $content->pull($cartItem->rowId);
 
-        $this->events->fire('cart.removed', $cartItem);
+        $this->events->dispatch('cart.removed', $cartItem);
 
         $this->session->put($this->instance, $content);
     }
@@ -178,7 +178,7 @@ class Cart
      * Get a cart item from the cart by its rowId.
      *
      * @param string $rowId
-     * @return \I9code\Shoppingcart\CartItem
+     * @return \Gloudemans\Shoppingcart\CartItem
      */
     public function get($rowId)
     {
@@ -360,7 +360,7 @@ class Cart
             'content' => serialize($content)
         ]);
 
-        $this->events->fire('cart.stored');
+        $this->events->dispatch('cart.stored');
     }
 
     /**
@@ -390,7 +390,7 @@ class Cart
             $content->put($cartItem->rowId, $cartItem);
         }
 
-        $this->events->fire('cart.restored');
+        $this->events->dispatch('cart.restored');
 
         $this->session->put($this->instance, $content);
 
@@ -445,7 +445,7 @@ class Cart
      * @param int|float $qty
      * @param float     $price
      * @param array     $options
-     * @return \I9code\Shoppingcart\CartItem
+     * @return \Gloudemans\Shoppingcart\CartItem
      */
     private function createCartItem($id, $name, $qty, $price, array $options)
     {
